@@ -10,7 +10,7 @@ proc memInfo(): void =
   for line in lines memFile:
     echo line
 
-proc totalMemInfo(): string = 
+proc totalMemInfo*(): string = 
 # Returns in megabytes the amount of ram installed. 
 # If it cant we  return nil, whether thats good or not is up
 # to the user of this.
@@ -19,8 +19,8 @@ proc totalMemInfo(): string =
       var info = line.split().deduplicate()
       for x in info: # Tried to do sequtil filter ,but couldn't get it to work properly
         try:
-          var x = parseInt(x) / 1024
-          return cast[string](x)
+          var x = (parseInt(x) / 1024).int()
+          return intToStr(x)
         except:
           continue
   return nil
